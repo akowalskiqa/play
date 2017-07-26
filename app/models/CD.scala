@@ -5,7 +5,7 @@ import play.api.data.Forms._
 
 import scala.collection.mutable.ArrayBuffer
 
-case class CD(name: String, price: Int,author:String,playDuration:Int)
+case class CD(name: String, price: Int, author: String, playDuration: Int)
 
 object CD {
 
@@ -19,9 +19,9 @@ object CD {
   )
 
   val cds = ArrayBuffer(
-    CD("CD 1", 34,"steven",50),
-    CD("CD 2", 99,"alice",180),
-    CD("CD 3", 14,"johnson", 37)
+    CD("CD 1", 34, "steven", 50),
+    CD("CD 2", 99, "alice", 180),
+    CD("CD 3", 14, "johnson", 37)
   )
 
 }

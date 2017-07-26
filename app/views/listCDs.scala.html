@@ -2,25 +2,28 @@
 
 @main("CDs") {
 
-  <h1>CDs</h1>
-  <table>
-    <thead>
-      <tr><th>Name</th><th>Price</th><th>Author</th><th>Play Duration</th></tr>
-    </thead>
-    <tbody>
-    @for(cd <- cds) {
-      <tr><td>@cd.name</td><td>@cd.price</td><td>@cd.author</td><td>@cd.playDuration</td></tr>
+    <h1>CDs</h1>
+    <table>
+        <thead>
+            <tr><th>Name</th><th>Price</th><th>Author</th><th>Play Duration</th></tr>
+        </thead>
+        <tbody>
+        @for(cd <- cds) {
+            <tr><td>@cd.name</td>
+                <td>@cd.price</td>
+                <td>@cd.author</td>
+                <td>@cd.playDuration</td></tr>
+        }
+        </tbody>
+    </table>
+
+    <hr/>
+
+    @helper.form(routes.CDApplication.createCD()) {
+        @helper.inputText(form("name"), 'id -> "SomeId", 'class -> "SomeClass")
+        @helper.inputText(form("price"))
+        @helper.inputText(form("author"))
+        @helper.inputText(form("playDuration"))
+        <button type="submit">Create CD</button>
     }
-    </tbody>
-  </table>
-
-  <hr/>
-
-  @helper.form(routes.CDApplication.createCD()) {
-      @helper.inputText(form("name"), 'id -> "SomeId", 'class -> "SomeClass")
-      @helper.inputText(form("price"))
-      @helper.inputText(form("author"))
-      @helper.inputText(form("playDuration"))
-    <button type="submit">Create CD</button>
-  }
 }

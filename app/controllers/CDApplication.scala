@@ -48,7 +48,7 @@ class CDApplication @Inject()(val messagesApi: MessagesApi) extends Controller w
     formValidationResult.fold({ formWithErrors =>
       BadRequest(views.html.listItems(Item.items, formWithErrors))
     }, { item =>
-      val newItem = Item(item.name, item.description, item.maker, item.price, item.amount, (item.price * item.amount) * 5, item.seller,item.imageURL)
+      val newItem = Item(item.name, item.description, item.maker, item.price, item.amount, (item.price * item.amount) * 5, item.seller, item.imageURL)
       Item.items.append(newItem)
       Redirect(routes.CDApplication.listItems)
     })
