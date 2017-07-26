@@ -51,6 +51,15 @@ GET /flashRedirect             controllers.Application.flashRedirect
 GET     /cds                        controllers.CDApplication.listCDs
 POST    /cds                        controllers.CDApplication.createCD
 
+GET /items              controllers.CDApplication.listItems
+POST /items             controllers.CDApplication.newItem
+
+GET /items/update       controllers.CDApplication.listItemsToUpdate
+POST /items/update      controllers.CDApplication.itemUpdate
+
+GET /items/delete       controllers.CDApplication.showTODeleteItem
+POST /items/delete      controllers.CDApplication.deleteItem
+
 
 
 

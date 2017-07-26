@@ -5,6 +5,7 @@ import javax.inject.Inject
 import models.CD
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc._
+import models.Item
 
 import scala.concurrent.Future
 
@@ -29,11 +30,53 @@ class CDApplication @Inject()(val messagesApi: MessagesApi) extends Controller w
     })
   }
 
+  def listItems = Action { implicit request =>
+    Ok(views.html.listItems(Item.items, Item.createItemForm))
+  }
+
+  def showTODeleteItem = Action { implicit request =>
+    Ok(views.html.deleteItem(Item.items, Item.itemTToDelete))
+  }
+
+  def listItemsToUpdate = Action { implicit request =>
+    Ok(views.html.updateItem(Item.items, Item.createItemForm))
+  }
 
 
+  def newItem = Action { implicit request =>
+    val formValidationResult = Item.createItemForm.bindFromRequest
+    formValidationResult.fold({ formWithErrors =>
+      BadRequest(views.html.listItems(Item.items, formWithErrors))
+    }, { item =>
+      val newItem = Item(item.name, item.description, item.maker, item.price, item.amount, (item.price * item.amount) * 5, item.seller)
+      Item.items.append(newItem)
+      Redirect(routes.CDApplication.listItems)
+    })
+  }
 
+  def itemUpdate = Action { implicit request =>
+    val formValidationResult = Item.createItemForm.bindFromRequest
+    formValidationResult.fold({ formWithErrors =>
+      BadRequest(views.html.listItems(Item.items, formWithErrors))
+    }, { item =>
+      val indexOfItem = Item.items.indexWhere(e=>e.name.equalsIgnoreCase(item.name))+1
+      Item.items(indexOfItem).description = item.description
+      Item.items(indexOfItem).maker = item.maker
+      Item.items(indexOfItem).price = item.price
+      Item.items(indexOfItem).amount = item.amount
+      Item.items(indexOfItem).discountForCertainAmount = item.discountForCertainAmount
+      Item.items(indexOfItem).seller = item.seller
+      Redirect(routes.CDApplication.listItems)
+    })
+  }
 
-
+  def deleteItem = Action { implicit request =>
+    val formValidationResult = Item.itemTToDelete.bindFromRequest
+    formValidationResult.fold({ formWithErrors =>
+      BadRequest(views.html.deleteItem(Item.items, formWithErrors))
+    },{ item =>
+      Item.items.remove(Item.items.indexWhere(e=> e.name.equalsIgnoreCase(item.name))+1)
+      Redirect(routes.CDApplication.showTODeleteItem)
+    })
+  }
 }
-
-

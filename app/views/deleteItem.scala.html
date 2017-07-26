@@ -1,0 +1,29 @@
+@(items: Seq[Item], form: Form[ItemTToDelete])(implicit messages: Messages)
+
+@main("Delete Item") {
+  <h1>Items</h1>
+  <table>
+    <thead>
+      <tr><th>Name</th><th>Description</th><th>Maker</th><th>Price</th><th>Amount</th><th>discountForCertainAmount</th><th>seller</th></tr>
+    </thead>
+    <tbody>
+    @for(item <- items) {
+      <tr><td>@item.name</td><td>@item.description</td><td>@item.maker</td><td>@item.price</td><td>@item.amount</td><td>@item.discountForCertainAmount</td><td>@item.seller</td></tr>
+    }
+    </tbody>
+  </table>
+
+  <hr/>
+
+  @helper.form(routes.CDApplication.deleteItem) {
+    @helper.inputText(form("name"), 'id -> "SomeId", 'class -> "SomeClass")
+    <button type="submit">Delete Item</button>
+  }
+
+
+
+
+
+
+
+}
