@@ -14,7 +14,7 @@ object CD {
       "name" -> nonEmptyText,
       "price" -> number(min = 0, max = 100)
     )(CD.apply)(CD.unapply)
-  )///
+  )///asdas
 
   val cds = ArrayBuffer(
     CD("CD 1", 123),
