@@ -48,7 +48,7 @@ class CDApplication @Inject()(val messagesApi: MessagesApi) extends Controller w
     formValidationResult.fold({ formWithErrors =>
       BadRequest(views.html.listItems(Item.items, formWithErrors))
     }, { item =>
-      val newItem = Item(item.name, item.description, item.maker, item.price, item.amount, (item.price * item.amount) * 5, item.seller)
+      val newItem = Item(item.name, item.description, item.maker, item.price, item.amount, (item.price * item.amount) * 5, item.seller,item.imageURL)
       Item.items.append(newItem)
       Redirect(routes.CDApplication.listItems)
     })
@@ -59,7 +59,8 @@ class CDApplication @Inject()(val messagesApi: MessagesApi) extends Controller w
     formValidationResult.fold({ formWithErrors =>
       BadRequest(views.html.listItems(Item.items, formWithErrors))
     }, { item =>
-      val indexOfItem = Item.items.indexWhere(e=>e.name.equalsIgnoreCase(item.name))+1
+      println(item.name)
+      val indexOfItem = Item.items.indexWhere(e => e.name.equalsIgnoreCase(item.name))
       Item.items(indexOfItem).description = item.description
       Item.items(indexOfItem).maker = item.maker
       Item.items(indexOfItem).price = item.price
@@ -74,8 +75,8 @@ class CDApplication @Inject()(val messagesApi: MessagesApi) extends Controller w
     val formValidationResult = Item.itemTToDelete.bindFromRequest
     formValidationResult.fold({ formWithErrors =>
       BadRequest(views.html.deleteItem(Item.items, formWithErrors))
-    },{ item =>
-      Item.items.remove(Item.items.indexWhere(e=> e.name.equalsIgnoreCase(item.name))+1)
+    }, { item =>
+      Item.items.remove(Item.items.indexWhere(e => e.name.equalsIgnoreCase(item.name)) + 1)
       Redirect(routes.CDApplication.showTODeleteItem)
     })
   }
