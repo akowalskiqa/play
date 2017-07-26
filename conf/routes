@@ -5,7 +5,54 @@
 # Home page
 GET     /                           controllers.Application.index
 
+GET     /secondPage                 controllers.Application.secondPage
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
-    
+
+GET /secondPage:input                controllers.Application.doProcessing(input:String)
+
+GET /echoReq                        controllers.Application.echoReq
+
+GET /withInput                            controllers.Application.indexWithInput(input:String)
+
+GET /withCustomResult                    controllers.Application.customResult
+
+GET /tryRedirect                        controllers.Application.simpleRedirect
+
+GET /testThis                           controllers.Application.testThis
+
+GET /plannedUpdates                           controllers.Application.plannedUpdates()
+
+GET /helpers                                 controllers.Application.helper1
+
+GET /candyShop          controllers.Application.takeMeToTheCandyShop
+
+GET /twoRoutes          controllers.Application.customResult
+
+GET /twoRoutes          controllers.Application.echoReq
+
+
+GET /newRoute       controllers.Default.TODO
+
+GET /startCookie       controllers.Application.startCookie
+GET /startCookie/discardCookie    controllers.Application.discardCookie
+GET /startCookie/changeCookieValue          controllers.Application.changeCookieValue
+
+GET /startSession       controllers.Application.startSession
+GET /startSession/addSessionElement             controllers.Application.addSessionElement
+GET /startSession/getSessionElement              controllers.Application.getSessionElement
+GET /startSession/cutSession                    controllers.Application.cutSession
+
+GET /flash                      controllers.Application.flash
+GET /flashRedirect             controllers.Application.flashRedirect
+
+GET     /cds                        controllers.CDApplication.listCDs
+POST    /cds                        controllers.CDApplication.createCD
+
+
+
+
+
+
